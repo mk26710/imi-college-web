@@ -1,0 +1,17 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import "./theme.css";
+@import "./custom-components.css";
+
+:root {
+	font-family: "Inter", theme("fontFamily.sans");
+}
+
+@supports (font-variation-settings: normal) {
+	:root {
+		font-family: "InterVariable", theme("fontFamily.sans");
+		font-optical-sizing: auto;
+	}
+}

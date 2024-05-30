@@ -1,0 +1,45 @@
+/* used in src/components/Button.svelte */
+@layer components {
+	.button-base {
+		@apply px-4 py-2 shadow transition-colors;
+
+		height: theme(height.9);
+		display: inline-flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		white-space: nowrap;
+		border-radius: theme(borderRadius.md);
+
+		&:focus-visible {
+			@apply outline-none ring-1 ring-blue-200;
+		}
+
+		&:active {
+			@apply translate-y-0.5;
+		}
+
+		&:disabled {
+			pointer-events: none;
+			opacity: 0.5;
+		}
+	}
+
+	.button-primary {
+		background-color: theme(colors.black);
+		color: theme(colors.white);
+
+		&:hover {
+			background-color: theme(colors.black / 80%);
+		}
+	}
+
+	.button-secondary {
+		background-color: theme(backgroundColor.indigo.500);
+		color: theme(colors.white);
+
+		&:hover {
+			background-color: theme(backgroundColor.indigo.500 / 80%);
+		}
+	}
+}
