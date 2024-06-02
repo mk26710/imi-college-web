@@ -1,6 +1,7 @@
+import type { User } from "@/lib/api-types";
 import { writable } from "svelte/store";
 
-export const currentUser = writable<object | null>(null);
+export const currentUser = writable<User | null>(null);
 
 export const getCurrentUser = async () => {
 	const res = await fetch("/api/users/@me", {
@@ -21,14 +22,14 @@ export const getCurrentUser = async () => {
 };
 
 export const logoutCurrentUser = async () => {
-	const res = await fetch("/api/tokens", {
+	const res = await fetch("/api/tokens?cookie=unset", {
 		method: "DELETE",
 		credentials: "same-origin",
 	});
 
-  if (res.ok) {
-    currentUser.set(null);
-  }
+	if (res.ok) {
+		currentUser.set(null);
+	}
 
-  return res.status;
+	return res.status;
 };
