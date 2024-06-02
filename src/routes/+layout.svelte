@@ -11,7 +11,7 @@
 	// $: user.set(data?.user);
 
 	// $: {
-	// 	console.log(data);
+	// 	console.log($currentUser);
 	// }
 
 	// setContext("user", user);
@@ -22,11 +22,9 @@
 {#await promise}
 	<div
 		transition:fade={{ delay: 250, duration: 300 }}
-		class="fixed left-0 top-0 flex h-screen w-screen items-center justify-center bg-primary"
+		class="dark fixed left-0 top-0 flex h-screen w-screen items-center justify-center bg-background"
 	>
-		<h3 class="text-center text-6xl font-bold text-primary-foreground">
-			Колледж &laquo;МИР&raquo;
-		</h3>
+		<h3 class="text-center text-6xl font-bold text-primary">Колледж &laquo;МИР&raquo;</h3>
 	</div>
 {:then value}
 	<Header></Header>
