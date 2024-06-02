@@ -1,1 +1,3 @@
-// place files you want to import through the `$lib` alias in this folder.
+export const getPreferredScheme = () => {
+  return window?.matchMedia?.("(prefers-color-scheme:dark)")?.matches ? "dark" : "light";
+};
