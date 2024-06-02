@@ -15,3 +15,7 @@
 		font-optical-sizing: auto;
 	}
 }
+
+html:has(body.dark) {
+	color-scheme: dark;
+}
