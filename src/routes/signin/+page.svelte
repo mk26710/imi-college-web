@@ -6,7 +6,8 @@
 	import { onMount } from "svelte";
 	import { page } from "$app/stores";
 	import { login } from "@/lib/api";
-	import { getCurrentUser } from "@/stores/current-user";
+	import { currentUser, getCurrentUser } from "@/stores/current-user";
+	import { goto } from "$app/navigation";
 
 	let username: string | undefined;
 	let password: string | undefined;
@@ -15,6 +16,12 @@
 		const body = { username, password };
 		await login(body);
 		await getCurrentUser();
+	}
+
+	$: {
+		if ($currentUser != null) {
+			goto("/");
+		}
 	}
 
 	onMount(() => {
