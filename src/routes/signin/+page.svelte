@@ -14,7 +14,7 @@
 
 	async function submit() {
 		const body = { username, password };
-		await login(body);
+		await login({ body });
 		await getCurrentUser();
 	}
 

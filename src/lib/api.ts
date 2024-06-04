@@ -1,6 +1,8 @@
 import { z } from "zod";
 import type { DictRegion, DictTownType, UserAddress } from "./api-types";
 
+type FetchFn = typeof fetch;
+
 export type APIError = {
 	success: false;
 	status: number;
@@ -73,8 +75,12 @@ const LoginRequestBody = z.object({
 	password: z.string().max(72),
 });
 
-export async function login(body: unknown): Promise<boolean> {
-	const parsed = await LoginRequestBody.safeParseAsync(body);
+type LoginOptins = {
+	body: unknown;
+};
+
+export async function login(opt: LoginOptins): Promise<boolean> {
+	const parsed = await LoginRequestBody.safeParseAsync(opt.body);
 	if (!parsed.success) {
 		alert("ERROR VALIDATING INPUT");
 		console.error(parsed.error);
@@ -102,8 +108,14 @@ export async function login(body: unknown): Promise<boolean> {
 	}
 }
 
-export const getMyAddress = async () => {
-	const res = await fetch("/api/users/@me/address", {
+type GetMyAddressOptions = {
+	fetcher?: FetchFn;
+};
+
+export const getMyAddress = async (opt?: GetMyAddressOptions) => {
+	const fetcher = opt?.fetcher ?? fetch;
+
+	const res = await fetcher("/api/users/@me/address", {
 		method: "GET",
 		credentials: "same-origin",
 	});
@@ -117,8 +129,14 @@ export const getMyAddress = async () => {
 	return data as UserAddress;
 };
 
-export const getDictionaryRegions = async () => {
-	const res = await fetch("/api/dictionaries/regions", {
+type GetRegionsOptions = {
+	fetcher?: FetchFn;
+};
+
+export const getDictionaryRegions = async (opt?: GetRegionsOptions) => {
+	const fetcher = opt?.fetcher ?? fetch;
+
+	const res = await fetcher("/api/dictionaries/regions", {
 		method: "GET",
 		credentials: "same-origin",
 	});
@@ -132,8 +150,14 @@ export const getDictionaryRegions = async () => {
 	return data as DictRegion[];
 };
 
-export const getDictionaryTownTypes = async () => {
-	const res = await fetch("/api/dictionaries/towntypes", {
+type GetTownTypesOptions = {
+	fetcher?: FetchFn;
+};
+
+export const getDictionaryTownTypes = async (opt?: GetTownTypesOptions) => {
+	const fetcher = opt?.fetcher ?? fetch;
+
+	const res = await fetcher("/api/dictionaries/towntypes", {
 		method: "GET",
 		credentials: "same-origin",
 	});

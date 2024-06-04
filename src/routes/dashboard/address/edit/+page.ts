@@ -2,10 +2,10 @@ import { getDictionaryRegions, getDictionaryTownTypes } from "@/lib/api";
 import type { PageLoad } from "./$types";
 import { compareRegions } from "@/lib";
 
-export const load: PageLoad = async () => {
+export const load: PageLoad = async ({ fetch }) => {
 	const [dictRegions, dictTownTypes] = await Promise.all([
-		getDictionaryRegions(),
-		getDictionaryTownTypes(),
+		getDictionaryRegions({ fetcher: fetch }),
+		getDictionaryTownTypes({ fetcher: fetch }),
 	]);
 
 	dictRegions?.sort(compareRegions);
