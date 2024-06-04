@@ -4,6 +4,7 @@
 	import { fade } from "svelte/transition";
 	import "@/css/inter.css";
 	import "@/css/main.css";
+	import Footer from "@/components/Footer.svelte";
 
 	// export let data: LayoutData;
 
@@ -22,11 +23,12 @@
 {#await promise}
 	<div
 		transition:fade={{ delay: 250, duration: 300 }}
-		class="dark fixed left-0 top-0 flex h-screen w-screen items-center justify-center bg-background"
+		class="dark fixed left-0 top-0 flex h-screen w-screen items-center justify-center bg-background z-[999]"
 	>
 		<h3 class="text-center text-6xl font-bold text-primary">Колледж &laquo;МИР&raquo;</h3>
 	</div>
 {:then value}
-	<Header></Header>
+	<Header />
 	<slot />
+	<Footer />
 {/await}
