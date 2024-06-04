@@ -1,4 +1,5 @@
 import { z } from "zod";
+import type { DictRegion, DictTownType, UserAddress } from "./api-types";
 
 export type APIError = {
 	success: false;
@@ -101,3 +102,47 @@ export async function login(body: unknown): Promise<boolean> {
 	}
 }
 
+export const getMyAddress = async () => {
+	const res = await fetch("/api/users/@me/address", {
+		method: "GET",
+		credentials: "same-origin",
+	});
+
+	if (!res.ok) {
+		return null;
+	}
+
+	const data = await res.json();
+
+	return data as UserAddress;
+};
+
+export const getDictionaryRegions = async () => {
+	const res = await fetch("/api/dictionaries/regions", {
+		method: "GET",
+		credentials: "same-origin",
+	});
+
+	if (!res.ok) {
+		return null;
+	}
+
+	const data = await res.json();
+
+	return data as DictRegion[];
+};
+
+export const getDictionaryTownTypes = async () => {
+	const res = await fetch("/api/dictionaries/towntypes", {
+		method: "GET",
+		credentials: "same-origin",
+	});
+
+	if (!res.ok) {
+		return null;
+	}
+
+	const data = await res.json();
+
+	return data as DictTownType[];
+};
