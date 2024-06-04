@@ -46,7 +46,7 @@
 </script>
 
 <header
-	class="sticky top-0 box-border flex h-16 justify-center border-b border-border bg-background/90 backdrop-blur-sm"
+	class="sticky top-0 box-border flex h-16 justify-center border-b border-border bg-background/90 backdrop-blur-sm z-50"
 >
 	<div class="container flex items-center">
 		<div class="flex">
