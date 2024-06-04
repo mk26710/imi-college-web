@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Input from "@/components/Input.svelte";
+	import Input from "@/components/ui/Input.svelte";
 	import Main from "@/components/Main.svelte";
-	import Button from "@/components/Button.svelte";
-	import Label from "@/components/Label.svelte";
+	import Button from "@/components/ui/Button.svelte";
+	import Label from "@/components/ui/Label.svelte";
 	import { registerUser } from "@/lib/api";
 	import { goto } from "$app/navigation";
 	import type { EventHandler } from "svelte/elements";

@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Input from "@/components/Input.svelte";
-	import Label from "@/components/Label.svelte";
+	import Input from "@/components/ui/Input.svelte";
+	import Label from "@/components/ui/Label.svelte";
 	import Main from "@/components/Main.svelte";
-	import Button from "@/components/Button.svelte";
+	import Button from "@/components/ui/Button.svelte";
 	import { onMount } from "svelte";
 	import { page } from "$app/stores";
 	import { login } from "@/lib/api";
