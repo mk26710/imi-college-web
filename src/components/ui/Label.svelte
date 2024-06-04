@@ -16,7 +16,7 @@
 		$$props.class,
 	)}
 >
-	<slot></slot>
+	<slot />
 	{#if required}
 		<span class="text-destructive">*</span>
 	{/if}
