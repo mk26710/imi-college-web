@@ -16,6 +16,8 @@
 	}
 }
 
-html:has(body.dark) {
+html:has(body.dark),
+input:has(body.dark),
+select:has(body.dark) {
 	color-scheme: dark;
 }
