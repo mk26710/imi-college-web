@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { page } from "$app/stores";
 	import { cn } from "@/lib/cn";
-	import Button from "@/components/Button.svelte";
+	import Button from "@/components/ui/Button.svelte";
 	import { currentUser, getCurrentUser, logoutCurrentUser } from "@/stores/current-user";
 	import ExitIcon from "@/components/icons/ExitIcon.svelte";
 	import MoonIcon from "@/components/icons/MoonIcon.svelte";
 	import SunIcon from "@/components/icons/SunIcon.svelte";
-	import Avatar from "./Avatar.svelte";
+	import Avatar from "@/components/ui/Avatar.svelte";
 	import { appTheme, setDarkTheme, setLightTheme } from "@/stores/app-theme";
 	import { clickoutside } from "@svelte-put/clickoutside";
 	import { scale } from "svelte/transition";
@@ -46,7 +46,7 @@
 </script>
 
 <header
-	class="sticky top-0 box-border flex h-16 justify-center border-b border-border bg-background/90 backdrop-blur-sm z-50"
+	class="sticky top-0 z-50 box-border flex h-16 justify-center border-b border-border bg-background/90 backdrop-blur-sm"
 >
 	<div class="container flex items-center">
 		<div class="flex">
@@ -68,8 +68,10 @@
 			</Button>
 
 			{#if $currentUser == null}
-				<Button href="signup" class={cn(isSignUp && "hidden")}>Регистрация</Button>
-				<Button href="signin" variant="outline" class={cn(isSignIn && "hidden")}>Вход</Button>
+				<Button href="signup" variant="outline" class={cn(isSignUp && "hidden")}>
+					Регистрация
+					</Button>
+				<Button href="signin" class={cn("ml-2", isSignIn && "hidden")}>Вход</Button>
 			{:else}
 				<div class="relative">
 					<button on:click|stopPropagation={handleDropdown}>
