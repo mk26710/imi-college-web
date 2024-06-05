@@ -4,6 +4,21 @@
 		<meta charset="utf-8" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<script>
+			// we need this script to avoid FOUC on initial renders
+			const savedTheme = localStorage?.getItem("color-scheme");
+			const preferredTheme = window?.matchMedia?.("(prefers-color-scheme:dark)")?.matches
+				? "dark"
+				: "light";
+
+			const userTheme = savedTheme || preferredTheme;
+
+			if (userTheme === "dark") {
+				document?.documentElement?.classList?.add?.("dark"); // javascript, baby! you never know if something even exists!
+			} else {
+				document?.documentElement?.classList?.remove?.("dark");
+			}
+		</script>
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">
