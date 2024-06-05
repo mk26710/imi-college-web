@@ -1,7 +1,7 @@
 // export const ssr = false;
 
-import { getCurrentUser } from "@/lib/api";
 import type { LayoutLoad } from "./$types";
+import { getCurrentUser } from "@/lib/api";
 import { ROOT_DEP } from "@/lib/constants";
 
 export const load: LayoutLoad = async ({ fetch, depends }) => {
