@@ -2,7 +2,6 @@
 	import { page } from "$app/stores";
 	import { cn } from "@/lib/cn";
 	import Button from "@/components/ui/Button.svelte";
-	import { currentUser, getCurrentUser, logoutCurrentUser } from "@/stores/current-user";
 	import ExitIcon from "@/components/icons/ExitIcon.svelte";
 	import MoonIcon from "@/components/icons/MoonIcon.svelte";
 	import SunIcon from "@/components/icons/SunIcon.svelte";
@@ -11,6 +10,10 @@
 	import { clickoutside } from "@svelte-put/clickoutside";
 	import { scale } from "svelte/transition";
 	import { quintOut } from "svelte/easing";
+	import { logout, type getCurrentUser } from "@/lib/api";
+	import { invalidateAll } from "$app/navigation";
+
+	export let currentUser: Awaited<ReturnType<typeof getCurrentUser>>;
 
 	const NAV_LINKS = [
 		{ href: "/", text: "Главная" },
@@ -31,9 +34,9 @@
 	};
 
 	const handleLogout = async () => {
-		await logoutCurrentUser();
-		await getCurrentUser();
+		await logout();
 		handleClose();
+		invalidateAll();
 	};
 
 	const handleSwitchTheme = () => {
@@ -67,7 +70,7 @@
 				{/if}
 			</Button>
 
-			{#if $currentUser == null}
+			{#if currentUser == null}
 				<Button href="signup" variant="outline" class={cn(isSignUp && "hidden")}>
 					Регистрация
 					</Button>
@@ -75,7 +78,7 @@
 			{:else}
 				<div class="relative">
 					<button on:click|stopPropagation={handleDropdown}>
-						<Avatar username={$currentUser.username} />
+						<Avatar username={currentUser.username} />
 					</button>
 
 					{#if isOpen}

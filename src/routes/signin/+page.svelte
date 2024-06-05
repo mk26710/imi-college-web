@@ -6,8 +6,10 @@
 	import { onMount } from "svelte";
 	import { page } from "$app/stores";
 	import { login } from "@/lib/api";
-	import { currentUser, getCurrentUser } from "@/stores/current-user";
-	import { goto } from "$app/navigation";
+	import { goto, invalidateAll } from "$app/navigation";
+	import type { PageData } from "./$types";
+
+	export let data: PageData;
 
 	let username: string | undefined;
 	let password: string | undefined;
@@ -15,11 +17,11 @@
 	async function submit() {
 		const body = { username, password };
 		await login({ body });
-		await getCurrentUser();
+		invalidateAll();
 	}
 
 	$: {
-		if ($currentUser != null) {
+		if (data.currentUser != null) {
 			goto("/");
 		}
 	}

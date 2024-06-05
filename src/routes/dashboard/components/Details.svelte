@@ -1,15 +1,17 @@
 <script lang="ts">
-	import { currentUser } from "@/stores/current-user";
 	import PenIcon from "@/components/icons/PenIcon.svelte";
+	import type { getCurrentUser } from "@/lib/api";
+
+	export let currentUser: Awaited<ReturnType<typeof getCurrentUser>>;
 
 	$: fullName =
-		$currentUser?.details?.middleName +
+		currentUser?.details?.middleName +
 		" " +
-		$currentUser?.details?.firstName +
+		currentUser?.details?.firstName +
 		" " +
-		$currentUser?.details?.lastName;
+		currentUser?.details?.lastName;
 
-	$: birthDate = new Date($currentUser?.details?.birthday || "1900-01-01");
+	$: birthDate = new Date(currentUser?.details?.birthday || "1900-01-01");
 	$: intlBirthDate = Intl.DateTimeFormat("ru", {
 		year: "numeric",
 		day: "numeric",
@@ -19,12 +21,12 @@
 	type Entry = { title: string; name?: string; value: unknown; editable?: boolean };
 
 	$: entries = [
-		{ title: "Логин", value: $currentUser?.username },
+		{ title: "Логин", value: currentUser?.username },
 		{ title: "Полное имя", value: fullName },
 		{ title: "Дата рождения", value: intlBirthDate },
-		{ title: "Email", value: $currentUser?.email },
-		{ title: "Телефон", value: $currentUser?.details?.tel },
-		{ title: "СНИЛС", value: $currentUser?.details?.snils ?? "Не указан" },
+		{ title: "Email", value: currentUser?.email },
+		{ title: "Телефон", value: currentUser?.details?.tel },
+		{ title: "СНИЛС", value: currentUser?.details?.snils ?? "Не указан" },
 	] satisfies Entry[];
 </script>
 
@@ -34,7 +36,7 @@
 			<span>Данные Абитуриента</span>
 			<div class="flex-1"></div>
 			<a
-				href="/dashboard/edit/details"
+				href="/dashboard/details/edit"
 				role="button"
 				class="flex items-center justify-center gap-2 opacity-50 hover:opacity-100"
 			>

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import type { DictRegion, DictTownType, UserAddress } from "./api-types";
+import type { DictRegion, DictTownType, User, UserAddress } from "./api-types";
 
 type FetchFn = typeof fetch;
 
@@ -107,6 +107,37 @@ export async function login(opt: LoginOptins): Promise<boolean> {
 		return false;
 	}
 }
+
+export const logout = async () => {
+	const res = await fetch("/api/tokens?cookie=unset", {
+		method: "DELETE",
+		credentials: "same-origin",
+	});
+
+	return res.status;
+};
+
+
+type GetCurrentUser = {
+	fetcher?: FetchFn;
+};
+
+export const getCurrentUser = async (opt?: GetCurrentUser) => {
+	const fetcher = opt?.fetcher ?? fetch;
+
+	const res = await fetcher("/api/users/@me", {
+		method: "GET",
+		credentials: "same-origin",
+	});
+
+	if (!res.ok) {
+		return null;
+	}
+
+	const data = await res.json();
+
+	return data as User;
+};
 
 type GetMyAddressOptions = {
 	fetcher?: FetchFn;

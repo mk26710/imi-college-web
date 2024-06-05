@@ -8,8 +8,8 @@
 </script>
 
 <Main>
-	<div class="container max-w-screen-lg gap-4 flex flex-col">
-		<Details />
+	<div class="container flex max-w-screen-lg flex-col gap-4">
+		<Details currentUser={data.currentUser} />
 		<Address address={data.address} />
 	</div>
 </Main>

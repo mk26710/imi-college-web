@@ -1,34 +1,22 @@
 <script lang="ts">
+	import type { LayoutData } from "./$types";
+	import { setContext } from "svelte";
+	import { readonly, writable } from "svelte/store";
 	import Header from "@/components/Header.svelte";
-	import { getCurrentUser } from "@/stores/current-user";
-	import { fade } from "svelte/transition";
+	import Footer from "@/components/Footer.svelte";
 	import "@/css/inter.css";
 	import "@/css/main.css";
-	import Footer from "@/components/Footer.svelte";
 
-	// export let data: LayoutData;
+	export let data: LayoutData;
 
-	// const user = writable();
-	// $: user.set(data?.user);
+	const currentUser = writable(data.currentUser);
+	$: {
+		currentUser.set(data.currentUser);
+	}
 
-	// $: {
-	// 	console.log($currentUser);
-	// }
-
-	// setContext("user", user);
-
-	let promise = getCurrentUser();
+	setContext("currentUser", readonly(currentUser));
 </script>
 
-{#await promise}
-	<div
-		transition:fade={{ delay: 250, duration: 300 }}
-		class="dark fixed left-0 top-0 flex h-screen w-screen items-center justify-center bg-background z-[999]"
-	>
-		<h3 class="text-center text-6xl font-bold text-primary">Колледж &laquo;МИР&raquo;</h3>
-	</div>
-{:then value}
-	<Header />
-	<slot />
-	<Footer />
-{/await}
+<Header currentUser={data.currentUser} />
+<slot />
+<Footer />

@@ -1,9 +1,11 @@
 <script lang="ts">
 	import Unauthorized from "@/components/errors/Unauthorized.svelte";
-	import { currentUser } from "@/stores/current-user";
+	import type { LayoutData } from "./$types";
+
+	export let data: LayoutData;
 </script>
 
-{#if $currentUser != null}
+{#if data.currentUser != null}
 	<slot></slot>
 {:else}
 	<Unauthorized />
