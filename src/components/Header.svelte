@@ -54,7 +54,7 @@
 	<div class="container flex items-center">
 		<div class="flex">
 			<a href="/" class="mr-4 text-lg font-bold text-primary">Колледж &laquo;МИР&raquo;</a>
-			<nav class="flex items-center gap-4 text-sm">
+			<nav class="flex items-center gap-4 text-sm" data-sveltekit-preload-data="false">
 				{#each NAV_LINKS as link (link.text)}
 					<a href={link.href} class="opacity-80 transition-all hover:opacity-100">{link.text}</a>
 				{/each}
