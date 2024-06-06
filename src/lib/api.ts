@@ -1,5 +1,5 @@
 import { z } from "zod";
-import type { DictRegion, DictTownType, User, UserAddress } from "./api-types";
+import type { DictRegion, DictTownType, SetUserAddressBody, User, UserAddress } from "./api-types";
 
 type FetchFn = typeof fetch;
 
@@ -117,7 +117,6 @@ export const logout = async () => {
 	return res.status;
 };
 
-
 type GetCurrentUser = {
 	fetcher?: FetchFn;
 };
@@ -158,6 +157,30 @@ export const getMyAddress = async (opt?: GetMyAddressOptions) => {
 	const data = await res.json();
 
 	return data as UserAddress;
+};
+
+type SetMyAddressOptions = {
+	fethcer?: FetchFn;
+	body: SetUserAddressBody;
+};
+
+export const setMyAddress = async (opt: SetMyAddressOptions) => {
+	const fethcer = opt.fethcer ?? fetch;
+
+	const res = await fethcer("/api/users/@me/address", {
+		method: "PUT",
+		credentials: "same-origin",
+		body: JSON.stringify(opt.body),
+		headers: { "Content-Type": "application/json" },
+	});
+
+	if (!res.ok) {
+		return null;
+	}
+
+	const data = await res.json();
+
+	return data;
 };
 
 type GetRegionsOptions = {

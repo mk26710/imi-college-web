@@ -6,6 +6,9 @@
 	import Select from "@/components/ui/Select.svelte";
 	import type { EventHandler } from "svelte/elements";
 	import type { PageData } from "./$types";
+	import { SetUserAddressSchema } from "@/lib/api-types";
+	import { setMyAddress } from "@/lib/api";
+	import { goto, invalidateAll } from "$app/navigation";
 
 	export let data: PageData;
 
@@ -18,15 +21,26 @@
 	let town: string | undefined = data.address?.town;
 	let postCode: string | undefined = data.address?.postCode;
 
+	let isSubmitting = false;
+
 	const handleSubmit: EventHandler<SubmitEvent, HTMLFormElement> = async () => {
-		const body = {
+		const body = SetUserAddressSchema.parse({
 			regionId,
 			townTypeId,
 			address,
 			town,
 			postCode,
-		};
-		console.table(body);
+		});
+
+		isSubmitting = true;
+		try {
+			await setMyAddress({ body });
+			await invalidateAll();
+
+			goto("/dashboard#address")
+		} finally {
+			isSubmitting = false;
+		}
 	};
 </script>
 
@@ -123,8 +137,10 @@
 		</div>
 
 		<div class="mt-6 flex items-center justify-end gap-x-4">
-			<Button href="/dashboard#address" type="button" variant="ghost">Отмена</Button>
-			<Button type="submit">Сохранить</Button>
+			<Button href="/dashboard#address" type="button" variant="ghost" disabled={isSubmitting}>
+				Отмена
+			</Button>
+			<Button type="submit" disabled={isSubmitting}>Сохранить</Button>
 		</div>
 	</form>
 </Main>

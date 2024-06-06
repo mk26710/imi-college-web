@@ -54,3 +54,13 @@ export const UserAddressSchema = z.object({
 });
 
 export type UserAddress = z.infer<typeof UserAddressSchema>;
+
+export const SetUserAddressSchema = UserAddressSchema.pick({
+	regionId: true,
+	townTypeId: true,
+	town: true,
+	address: true,
+	postCode: true,
+});
+
+export type SetUserAddressBody = z.infer<typeof SetUserAddressSchema>;
