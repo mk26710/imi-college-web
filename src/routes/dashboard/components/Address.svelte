@@ -29,7 +29,7 @@
 </script>
 
 <div class="rounded-lg border border-border bg-background px-8 py-6" id="address">
-	<div class="px-4 sm:px-0 flex flex-row items-start">
+	<div class="flex flex-row items-start px-4 sm:px-0">
 		<div class="flex-1">
 			<h3 class="text-base font-semibold leading-7 text-primary">Адрес абитуриента</h3>
 			<p class="mt-1 max-w-2xl text-sm leading-6 text-muted-foreground">Место жительства</p>
@@ -43,16 +43,22 @@
 			<span class="text-sm">Редактировать</span>
 		</a>
 	</div>
-	<div class="mt-6 border-t border-border">
-		<dl class="divide-y divide-border">
-			{#each entries as entry}
-				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-					<dt class="text-sm font-medium leading-6 text-primary">{entry.title}</dt>
-					<dd class="mt-1 text-sm leading-6 text-primary/80 sm:col-span-2 sm:mt-0">
-						{entry.value}
-					</dd>
-				</div>
-			{/each}
-		</dl>
-	</div>
+	{#if address == null}
+		<div class="mt-8 flex h-24 items-center justify-center border-t border-border">
+			<span class="font-semibold text-muted-foreground">Адрес не указан</span>
+		</div>
+	{:else}
+		<div class="mt-6 border-t border-border">
+			<dl class="divide-y divide-border">
+				{#each entries as entry}
+					<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+						<dt class="text-sm font-medium leading-6 text-primary">{entry.title}</dt>
+						<dd class="mt-1 text-sm leading-6 text-primary/80 sm:col-span-2 sm:mt-0">
+							{entry.value}
+						</dd>
+					</div>
+				{/each}
+			</dl>
+		</div>
+	{/if}
 </div>
