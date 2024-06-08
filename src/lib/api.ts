@@ -1,5 +1,12 @@
 import { z } from "zod";
-import type { DictRegion, DictTownType, SetUserAddressBody, User, UserAddress } from "./api-types";
+import {
+	UserDetailsSchema,
+	type DictRegion,
+	type DictTownType,
+	type SetUserAddressBody,
+	type User,
+	type UserAddress,
+} from "./api-types";
 
 type FetchFn = typeof fetch;
 
@@ -138,6 +145,44 @@ export const getCurrentUser = async (opt?: GetCurrentUser) => {
 	return data as User;
 };
 
+export const SetCurrentUserDetailsBodySchema = UserDetailsSchema.pick({
+	firstName: true,
+	middleName: true,
+	lastName: true,
+	genderId: true,
+	birthday: true,
+	tel: true,
+	snils: true,
+	needsDorm: true,
+});
+
+export type SetCurrentUserDetailsBody = z.infer<typeof SetCurrentUserDetailsBodySchema>;
+
+type SetCurrentUserDetailsOptions = {
+	fetcher?: FetchFn;
+	body: SetCurrentUserDetailsBody;
+};
+
+export const setCurrentUserDetails = async (opt: SetCurrentUserDetailsOptions) => {
+	const fetcher = opt?.fetcher ?? fetch;
+
+	const headers = new Headers();
+	headers.append("Content-Type", "application/json");
+
+	const res = await fetcher("/api/users/@me/details", {
+		method: "PUT",
+		credentials: "same-origin",
+		headers,
+		body: JSON.stringify(opt.body),
+	});
+
+	if (!res.ok) {
+		return null;
+	}
+
+	return res.status;
+};
+
 type GetMyAddressOptions = {
 	fetcher?: FetchFn;
 };
@@ -223,4 +268,25 @@ export const getDictionaryTownTypes = async (opt?: GetTownTypesOptions) => {
 	const data = await res.json();
 
 	return data as DictTownType[];
+};
+
+type GetDictionaryGendersOptions = {
+	fetcher?: FetchFn;
+};
+
+export const getDictionaryGenders = async (opt?: GetDictionaryGendersOptions) => {
+	const fetcher = opt?.fetcher ?? fetch;
+
+	const res = await fetcher("/api/dictionaries/genders", {
+		method: "GET",
+		credentials: "same-origin",
+	});
+
+	if (!res.ok) {
+		return null;
+	}
+
+	const data = await res.json();
+
+	return data as DictRegion[];
 };

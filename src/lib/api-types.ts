@@ -1,27 +1,32 @@
 import { z } from "zod";
+import { emptyStringToNull } from "./transformers";
 
-export type UserDetails = {
-	id: string;
-	userId: string;
-	firstName: string;
-	middleName: string;
-	lastName: string | null;
-	genderId: number;
-	birthday: string;
-	tel: string;
-	snils: string | null;
-};
+export const UserDetailsSchema = z.object({
+	id: z.string(),
+	userId: z.string(),
+	firstName: z.string().trim(),
+	middleName: z.string().trim(),
+	lastName: z.string().trim().nullable().transform(emptyStringToNull),
+	genderId: z.number(),
+	birthday: z.string().datetime(),
+	tel: z.string(),
+	snils: z.string(),
+	needsDorm: z.coerce.boolean(),
+});
 
-export type User = {
-	id: string;
-	createdAt: string;
-	username: string;
-	email: string;
-	isVerified: boolean;
-	needsDorm: boolean;
-	permissions: string;
-	details: UserDetails | null;
-};
+export type UserDetails = z.infer<typeof UserDetailsSchema>;
+
+export const UserSchema = z.object({
+	id: z.string(),
+	createdAt: z.string().datetime(),
+	username: z.string(),
+	email: z.string().email(),
+	isVerified: z.boolean(),
+	permissions: z.string(),
+	details: UserDetailsSchema.nullable(),
+});
+
+export type User = z.infer<typeof UserSchema>;
 
 export const DictRegionSchema = z.object({
 	id: z.number(),
@@ -40,6 +45,14 @@ export const DictTownTypeSchema = z.object({
 });
 
 export type DictTownType = z.infer<typeof DictTownTypeSchema>;
+
+export const DictDenderSchema = z.object({
+	id: z.number(),
+	value: z.string(),
+	displayValue: z.string().nullable(),
+});
+
+export type DictGender = z.infer<typeof DictRegionSchema>;
 
 export const UserAddressSchema = z.object({
 	id: z.string(),
