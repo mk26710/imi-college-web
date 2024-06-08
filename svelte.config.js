@@ -14,7 +14,8 @@ const config = {
 		adapter: adapter(),
 		alias: {
 			"@/*": "src/*",
-			"$ui/*": "src/components/ui/*"
+			"$ui/*": "src/components/ui/*",
+			"$icons/*": "src/components/icons/*",
 		},
 	},
 };
