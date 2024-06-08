@@ -21,12 +21,12 @@
 	type Entry = { title: string; name?: string; value: unknown; editable?: boolean };
 
 	$: entries = [
-		{ title: "Логин", value: currentUser?.username },
 		{ title: "Полное имя", value: fullName },
+		{ title: "Пол", value: currentUser?.details?.genderId },
 		{ title: "Дата рождения", value: intlBirthDate },
-		{ title: "Email", value: currentUser?.email },
 		{ title: "Телефон", value: currentUser?.details?.tel },
 		{ title: "СНИЛС", value: currentUser?.details?.snils ?? "Не указан" },
+		{ title: "Требуется общежитие", value: currentUser?.details?.needsDorm ? "Да" : "Нет" },
 	] satisfies Entry[];
 </script>
 
