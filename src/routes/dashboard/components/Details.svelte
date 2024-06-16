@@ -1,8 +1,9 @@
 <script lang="ts">
 	import PenIcon from "@/components/icons/PenIcon.svelte";
-	import type { getCurrentUser } from "@/lib/api";
+	import type { getCurrentUser, getDictionaryGenders } from "@/lib/api";
 
 	export let currentUser: Awaited<ReturnType<typeof getCurrentUser>>;
+	export let dictGenders: Awaited<ReturnType<typeof getDictionaryGenders>>;
 
 	$: fullName =
 		currentUser?.details?.middleName +
@@ -18,11 +19,14 @@
 		month: "short",
 	}).format(birthDate);
 
+	$: gender = dictGenders?.find((entry) => entry.id === currentUser?.details?.genderId);
+	$: genderReadable = gender?.displayValue ?? gender?.value ?? "Неизвестно";
+
 	type Entry = { title: string; name?: string; value: unknown; editable?: boolean };
 
 	$: entries = [
 		{ title: "Полное имя", value: fullName },
-		{ title: "Пол", value: currentUser?.details?.genderId },
+		{ title: "Пол", value: genderReadable },
 		{ title: "Дата рождения", value: intlBirthDate },
 		{ title: "Телефон", value: currentUser?.details?.tel },
 		{ title: "СНИЛС", value: currentUser?.details?.snils ?? "Не указан" },

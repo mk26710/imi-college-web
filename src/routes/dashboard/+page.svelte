@@ -11,7 +11,7 @@
 <Main>
 	<div class="container flex max-w-screen-lg flex-col gap-4">
 		<Info user={data.currentUser} />
-		<Details currentUser={data.currentUser} />
+		<Details currentUser={data.currentUser} dictGenders={data.dictGenders} />
 		<Address address={data.address} />
 	</div>
 </Main>
