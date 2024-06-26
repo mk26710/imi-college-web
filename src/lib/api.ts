@@ -1,11 +1,16 @@
 import { z } from "zod";
 import {
 	UserDetailsSchema,
+	type Application,
+	type DictEduLevel,
 	type DictRegion,
 	type DictTownType,
+	type CollegeMajor as CollegeMajor,
 	type SetUserAddressBody,
 	type User,
 	type UserAddress,
+	CollegeMajorSchema,
+	DictEduLevelSchema,
 } from "./api-types";
 
 type FetchFn = typeof fetch;
@@ -289,4 +294,98 @@ export const getDictionaryGenders = async (opt?: GetDictionaryGendersOptions) =>
 	const data = await res.json();
 
 	return data as DictRegion[];
+};
+
+type GetDictionaryEduLevelsOptions = {
+	fetcher?: FetchFn;
+};
+
+export const getDictionaryEduLevels = async (opt?: GetDictionaryEduLevelsOptions) => {
+	const fetcher = opt?.fetcher ?? fetch;
+
+	const res = await fetcher("/api/dictionaries/edulevels", {
+		method: "GET",
+		credentials: "same-origin",
+	});
+
+	if (!res.ok) {
+		return null;
+	}
+
+	const data = await res.json();
+
+	return data as DictEduLevel[];
+};
+
+type GetCollegeMajorsOptions = {
+	fetcher?: FetchFn;
+};
+
+export const getCollegeMajors = async (opts?: GetCollegeMajorsOptions) => {
+	const fetcher = opts?.fetcher ?? fetch;
+
+	const res = await fetcher("/api/dictionaries/majors", {
+		method: "GET",
+		credentials: "same-origin",
+	});
+
+	if (!res.ok) {
+		return null;
+	}
+
+	const data = await res.json();
+
+	return data as CollegeMajor[];
+};
+
+type GetApplicationsOptions = {
+	fetcher?: FetchFn;
+	targetId?: string;
+};
+
+export const getApplications = async (opt?: GetApplicationsOptions) => {
+	const fetcher = opt?.fetcher ?? fetch;
+	const targetid = opt?.targetId ?? "@me";
+
+	const res = await fetcher(`/api/users/${targetid}/applications`, {
+		method: "GET",
+		credentials: "same-origin",
+	});
+
+	if (!res.ok) {
+		return null;
+	}
+
+	const data = await res.json();
+
+	return data as Application[];
+};
+
+export const SendApplicationSchema = z.object({
+	majorId: CollegeMajorSchema.shape.id,
+	eduLevelId: DictEduLevelSchema.shape.id,
+});
+
+type SendApplicationOptions = {
+	targetId: User["id"];
+	body: z.infer<typeof SendApplicationSchema>;
+};
+
+export const sendApplication = async (opt: SendApplicationOptions) => {
+	const headers = new Headers();
+	headers.append("Content-Type", "application/json");
+
+	const res = await fetch(`/api/users/${opt.targetId}/applications`, {
+		method: "POST",
+		credentials: "same-origin",
+		body: JSON.stringify(opt.body),
+	});
+
+	if (!res.ok) {
+		return null;
+	}
+
+	const data = await res.json();
+
+	return data as Application;
 };

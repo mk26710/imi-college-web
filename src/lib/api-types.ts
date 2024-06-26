@@ -56,15 +56,23 @@ export type DictGender = z.infer<typeof DictRegionSchema>;
 
 export const UserAddressSchema = z.object({
 	id: z.string(),
-	userId: z.string(),
+	userId: UserSchema.shape.id,
 	region: DictRegionSchema.nullish(),
 	regionId: z.number(),
 	townType: DictTownTypeSchema.nullish(),
-	townTypeId: z.number(),
+	townTypeId: DictTownTypeSchema.shape.id,
 	town: z.string(),
 	address: z.string(),
 	postCode: z.string(),
 });
+
+export const DictEduLevelSchema = z.object({
+	id: z.number(),
+	value: z.string(),
+	displayValue: z.string().nullish(),
+});
+
+export type DictEduLevel = z.infer<typeof DictEduLevelSchema>;
 
 export type UserAddress = z.infer<typeof UserAddressSchema>;
 
@@ -77,3 +85,27 @@ export const SetUserAddressSchema = UserAddressSchema.pick({
 });
 
 export type SetUserAddressBody = z.infer<typeof SetUserAddressSchema>;
+
+export const CollegeMajorSchema = z.object({
+	id: z.string(),
+	name: z.string(),
+	prefix: z.string(),
+	base: z.string(),
+	nameOfficial: z.string(),
+	budget: z.boolean(),
+	code: z.string(),
+});
+
+export type CollegeMajor = z.infer<typeof CollegeMajorSchema>;
+
+export const ApplicationSchema = z.object({
+	id: z.string(),
+	createdAt: z.string(),
+	userId: UserSchema.shape.id,
+	majorId: z.string(),
+	eduLevelId: z.number(),
+	statusId: z.number(),
+	priority: z.number(),
+});
+
+export type Application = z.infer<typeof ApplicationSchema>;
