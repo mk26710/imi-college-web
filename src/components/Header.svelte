@@ -12,6 +12,7 @@
 	import { quintOut } from "svelte/easing";
 	import { logout, type getCurrentUser } from "@/lib/api";
 	import { invalidateAll } from "$app/navigation";
+	import CogIcon from "./icons/CogIcon.svelte";
 
 	export let currentUser: Awaited<ReturnType<typeof getCurrentUser>>;
 
@@ -88,10 +89,14 @@
 							on:clickoutside={handleClose}
 							transition:scale={{ duration: 200, opacity: 0.1, start: 0.5, easing: quintOut }}
 						>
+							<Button variant="ghost" size="sm" class="w-full justify-start px-2">
+								<CogIcon class="mr-2 h-3 w-3" />
+								<span>Настройки</span>
+							</Button>
 							<Button
 								variant="ghost"
 								size="sm"
-								class="px-2 hover:bg-destructive/20 hover:text-destructive"
+								class="w-full justify-start px-2 hover:bg-destructive/20 hover:text-destructive"
 								onclick={handleLogout}
 							>
 								<ExitIcon class="mr-2 h-3 w-3" />
