@@ -66,6 +66,8 @@ export const UserAddressSchema = z.object({
 	postCode: z.string(),
 });
 
+export type UserAddress = z.infer<typeof UserAddressSchema>;
+
 export const DictEduLevelSchema = z.object({
 	id: z.number(),
 	value: z.string(),
@@ -74,7 +76,14 @@ export const DictEduLevelSchema = z.object({
 
 export type DictEduLevel = z.infer<typeof DictEduLevelSchema>;
 
-export type UserAddress = z.infer<typeof UserAddressSchema>;
+export const DictAppStatusSchema = z.object({
+	id: z.number(),
+	isDefault: z.boolean(),
+	value: z.string(),
+	displayValue: z.string().nullish(),
+});
+
+export type DictAppStatus = z.infer<typeof DictAppStatusSchema>;
 
 export const SetUserAddressSchema = UserAddressSchema.pick({
 	regionId: true,

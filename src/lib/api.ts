@@ -11,6 +11,7 @@ import {
 	type UserAddress,
 	CollegeMajorSchema,
 	DictEduLevelSchema,
+	DictAppStatusSchema,
 } from "./api-types";
 
 type FetchFn = typeof fetch;
@@ -336,6 +337,23 @@ export const getCollegeMajors = async (opts?: GetCollegeMajorsOptions) => {
 	const data = await res.json();
 
 	return data as CollegeMajor[];
+};
+
+type GetDictAppStatusesOptions = {
+	fetcher?: FetchFn;
+};
+
+export const getDictionaryAppStatuses = async (opt?: GetDictAppStatusesOptions) => {
+	const fetcher = opt?.fetcher ?? fetch;
+
+	const rest = await fetcher("/api/dictionaries/appstatuses", {
+		method: "GET",
+		credentials: "same-origin",
+	});
+
+	const data = await rest.json();
+
+	return DictAppStatusSchema.array().parse(data);
 };
 
 type GetApplicationsOptions = {
