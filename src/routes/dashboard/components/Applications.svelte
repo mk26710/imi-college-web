@@ -60,7 +60,7 @@
 				>
 					<div class="flex items-center gap-2">
 						<div>
-							<span>Заявление на </span>
+							<span class="hidden md:inline">Заявление на </span>
 							<span class="font-semibold">{major?.prefix}</span>
 							<span> от </span>
 							<span class="font-semibold">{dateFormatter(new Date(appl.createdAt))}</span>
@@ -69,15 +69,15 @@
 					</div>
 
 					<div class="mt-2 border-t border-border pt-2">
-						<dl class="flex flex-row gap-1">
+						<dl class="flex flex-col md:flex-row gap-1">
 							<dt>Направление:</dt>
 							<dd class="font-semibold">{major?.name}</dd>
 						</dl>
-						<dl class="flex flex-row gap-1">
+						<dl class="flex flex-col md:flex-row gap-1">
 							<dt>На базе:</dt>
 							<dd class="font-semibold">{eduLevel?.displayValue ?? eduLevel?.value}</dd>
 						</dl>
-						<dl class="flex flex-row gap-1">
+						<dl class="flex flex-col md:flex-row gap-1">
 							<dt>Приоритет:</dt>
 							<dd class="font-semibold">{appl.priority}</dd>
 						</dl>
