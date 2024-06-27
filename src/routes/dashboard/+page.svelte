@@ -11,7 +11,7 @@
 	let blocks = [
 		{ title: "Персональные данные", href: "/dashboard/details/edit" },
 		{ title: "Домашний адрес", href: "/dashboard/address/edit" },
-		{ title: "Документы", href: "#" },
+		{ title: "Документы", href: "/dashboard/documents" },
 	];
 </script>
 
