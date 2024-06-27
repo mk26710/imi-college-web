@@ -26,7 +26,7 @@
 			class="grid grid-flow-dense grid-cols-1 gap-4 sm:grid-cols-2 md:grid-rows-1 lg:grid-cols-3"
 		>
 			{#each blocks as block}
-				<Button href={block.href} class="py-3 h-auto">
+				<Button href={block.href} class="h-auto py-3">
 					<div class="flex-1">
 						<h2 class="truncate font-semibold leading-7">{block.title}</h2>
 					</div>
@@ -34,6 +34,11 @@
 				</Button>
 			{/each}
 		</div>
-		<Applications />
+		<Applications
+			applications={data.applications}
+			majors={data.majors}
+			appStatuses={data.appStatuses}
+			eduLevels={data.eduLevels}
+		/>
 	</div>
 </Main>
