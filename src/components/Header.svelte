@@ -72,10 +72,10 @@
 			</Button>
 
 			{#if currentUser == null}
-				<Button href="signup" variant="outline" class={cn(isSignUp && "hidden")}>
+				<Button href="/signup" variant="outline" class={cn(isSignUp && "hidden")}>
 					Регистрация
 				</Button>
-				<Button href="signin" class={cn("ml-2", isSignIn && "hidden")}>Вход</Button>
+				<Button href="/signin" class={cn("ml-2", isSignIn && "hidden")}>Вход</Button>
 			{:else}
 				<div class="relative">
 					<button on:click|stopPropagation={handleDropdown}>
