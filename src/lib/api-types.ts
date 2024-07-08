@@ -107,14 +107,4 @@ export const CollegeMajorSchema = z.object({
 
 export type CollegeMajor = z.infer<typeof CollegeMajorSchema>;
 
-export const ApplicationSchema = z.object({
-	id: z.string(),
-	createdAt: z.string(),
-	userId: UserSchema.shape.id,
-	majorId: z.string(),
-	eduLevelId: z.number(),
-	statusId: z.number(),
-	priority: z.number(),
-});
 
-export type Application = z.infer<typeof ApplicationSchema>;

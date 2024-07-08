@@ -1,7 +1,6 @@
 import { z } from "zod";
 import {
 	UserDetailsSchema,
-	type Application,
 	type DictEduLevel,
 	type DictRegion,
 	type DictTownType,
@@ -13,6 +12,7 @@ import {
 	DictEduLevelSchema,
 	DictAppStatusSchema,
 } from "./api-types";
+import type { Application } from "./api/applications";
 
 type FetchFn = typeof fetch;
 
