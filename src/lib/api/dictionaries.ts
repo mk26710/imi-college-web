@@ -53,3 +53,31 @@ export const getDictDictionaryEduDocTypes = async (opt?: WithFetcherFn) => {
 
 	return DictEduDocTypeSchema.array().parse(data);
 };
+
+//
+
+export const DictNationalitySchema = z.object({
+	id: z.number(),
+	value: z.string(),
+	displayValue: z.string().nullish(),
+	sortPriority: z.number(),
+});
+
+export type DictNationality = z.infer<typeof DictNationalitySchema>;
+
+export const getDictionaryNationalities = async (opt?: WithFetcherFn) => {
+	const fetcher = opt?.fetcher ?? fetch;
+
+	const res = await fetcher("/api/dictionaries/nationalities", {
+		method: "GET",
+		credentials: "same-origin",
+	});
+
+	if (!res.ok) {
+		return null;
+	}
+
+	const data = await res.json();
+
+	return DictNationalitySchema.array().parse(data);
+};
