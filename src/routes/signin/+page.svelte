@@ -68,6 +68,9 @@
 
 					<Button type="submit">Войти</Button>
 				</form>
+				<div class="text-sm mt-2">
+					<span>Для входа в сиситему нужен аккаунт, который можно <a href="/signup" class="underline hover:cursor-pointer underline-offset-4">создать здесь</a>.</span>
+				</div>
 			</CardContent>
 		</Card>
 	</div>
