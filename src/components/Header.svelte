@@ -13,6 +13,7 @@
 	import { logout, type getCurrentUser } from "@/lib/api";
 	import { invalidateAll } from "$app/navigation";
 	import CogIcon from "./icons/CogIcon.svelte";
+	import StackMenuIcon from "$icons/StackMenuIcon.svelte";
 
 	export let currentUser: Awaited<ReturnType<typeof getCurrentUser>>;
 
@@ -52,8 +53,14 @@
 <header
 	class="sticky top-0 z-50 box-border flex h-16 justify-center border-b border-border bg-background/90 backdrop-blur-sm"
 >
-	<div class="container flex items-center">
-		<div class="flex">
+	<div class="container grid grid-cols-[1fr_2fr_1fr] grid-rows-1 items-center md:flex">
+		<div class="md:hidden">
+			<Button variant="ghost">
+				<StackMenuIcon />
+			</Button>
+		</div>
+
+		<div class="hidden md:flex">
 			<a href="/" class="mr-4 text-lg font-bold text-primary">Колледж &laquo;МИР&raquo;</a>
 			<nav class="flex items-center gap-4 text-sm" data-sveltekit-preload-data="false">
 				{#each NAV_LINKS as link (link.text)}
@@ -61,8 +68,12 @@
 				{/each}
 			</nav>
 		</div>
-		<div class="flex-1"></div>
-		<div class="flex items-center">
+		<div class="flex flex-1 items-center justify-center">
+			<a href="/" class="mr-4 text-lg font-bold text-primary md:hidden">
+				Колледж &laquo;МИР&raquo;
+			</a>
+		</div>
+		<div class="flex items-center justify-end">
 			<Button onclick={handleSwitchTheme} variant="ghost" class="mr-2 aspect-square p-0">
 				{#if $appTheme === "dark"}
 					<SunIcon />
@@ -72,7 +83,11 @@
 			</Button>
 
 			{#if currentUser == null}
-				<Button href="/signup" variant="outline" class={cn(isSignUp && "hidden")}>
+				<Button
+					href="/signup"
+					variant="outline"
+					class={cn("hidden md:inline-flex", isSignUp && "hidden")}
+				>
 					Регистрация
 				</Button>
 				<Button href="/signin" class={cn("ml-2", isSignIn && "hidden")}>Вход</Button>
