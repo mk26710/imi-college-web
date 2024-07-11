@@ -18,7 +18,7 @@
 
 		<div class="rounded-lg border border-border bg-background px-4 py-6 md:px-8 md:pb-8">
 			<div>
-				<h2 class="text-base font-semibold leading-7">Удостоверения лчиности</h2>
+				<h2 class="text-base font-semibold leading-7">Удостоверения личности</h2>
 				<p class="mt-1 text-sm leading-6 text-muted-foreground">
 					Такие документы как паспорт, свидетельство о рождении, и т.п.
 				</p>
@@ -29,7 +29,7 @@
 					<h3 class="mb-2 text-center text-base text-primary md:text-lg">
 						Вам необходимо добавить документ удостоверения личности!
 					</h3>
-					<Button disabled>Добавить документ</Button>
+					<Button href="/dashboard/documents/id/new">Добавить документ</Button>
 				</div>
 			{/if}
 		</div>
