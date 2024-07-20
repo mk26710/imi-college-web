@@ -5,6 +5,7 @@
 	import "@/css/inter.css";
 	import "@/css/main.css";
 	import NavigationSpinner from "@/components/NavigationSpinner.svelte";
+	import Background from "@/components/Background.svelte";
 
 	export let data: LayoutData;
 </script>
@@ -13,3 +14,4 @@
 <Header currentUser={data.currentUser} />
 <slot />
 <Footer />
+<Background />
