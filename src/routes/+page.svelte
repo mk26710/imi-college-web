@@ -6,13 +6,13 @@
 	<title>Приём заявлений</title>
 </svelte:head>
 
-<Main class="relative bg-background">
+<Main class="relative">
 	<div class="container flex flex-1 flex-col items-center justify-center">
 		<div class="relative">
 			<h2
-				class="bg-gradient-to-b from-sky-700 from-25% via-rose-700 to-amber-300 to-95% bg-clip-text text-[15rem] font-extrabold text-transparent"
+				class="bg-gradient-to-br from-purple-400 to-purple-900 bg-clip-text text-[10rem] font-extrabold text-transparent"
 			>
-				МИР
+				<span class="hidden md:inline">Колледж</span> МИР
 			</h2>
 		</div>
 	</div>
