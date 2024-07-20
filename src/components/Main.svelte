@@ -4,7 +4,7 @@
 
 <main
 	class={cn(
-		"flex min-h-[calc(100vh-4rem)] flex-col items-center bg-muted py-4",
+		"flex min-h-[calc(100vh-4rem)] flex-col items-center py-4",
 		$$props.class,
 	)}
 >
