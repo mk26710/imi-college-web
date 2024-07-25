@@ -9,7 +9,7 @@ export const EducationDocSchema = z.object({
 	series: z.string(),
 	number: z.string(),
 	issuer: z.string(),
-	issuedAt: z.string(),
+	issuedAt: z.string().date(),
 	gradYear: z.number(),
 	issuerRegionId: z.number(),
 });

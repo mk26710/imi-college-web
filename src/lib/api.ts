@@ -27,7 +27,7 @@ const RegisterBody = z.object({
 	firstName: z.string().min(1),
 	middleName: z.string().min(1),
 	lastName: z.string().optional().nullable().default(null),
-	birthday: z.string().transform((s) => s + "T00:00:00Z"),
+	birthday: z.string().date(),
 	genderId: z.coerce.number(),
 	username: z.string().regex(/^[a-zA-Z_0-9]+$/i),
 	password: z.string().min(6).max(72),
