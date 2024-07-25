@@ -2,7 +2,7 @@
 </script>
 
 <div
-	class="absolute inset-0 -z-10 h-full w-full overflow-hidden bg-background bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:32px_32px]"
+	class="fixed top-0 left-0 right-0 inset-0 -z-10 h-full w-full overflow-hidden bg-background bg-repeat bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:32px_32px]"
 >
 	<div
 		class="absolute left-0 right-0 top-0 -z-20 m-auto mr-[70vw] mt-[20vh] h-[250px] w-[250px] rounded-full bg-purple-600 opacity-20 blur-[100px] dark:bg-purple-400 dark:opacity-10"
