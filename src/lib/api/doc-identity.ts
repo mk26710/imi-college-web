@@ -66,6 +66,7 @@ export const createDocumentIdentity = async (opt: CreateDocumentIdentityOptions)
 	headers.append("Content-Type", "application/json");
 
 	const res = await fetcher(`/api/users/${opt.targetId}/documents/identity`, {
+		headers,
 		method: "POST",
 		body: JSON.stringify(opt.body),
 		credentials: "same-origin",
