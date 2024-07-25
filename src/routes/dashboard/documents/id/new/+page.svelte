@@ -8,6 +8,12 @@
 	import Label from "@/components/ui/Label.svelte";
 	import Input from "@/components/ui/Input.svelte";
 	import { compateNationalities } from "@/lib";
+	import {
+		createDocumentIdentity,
+		CreateDocumentIdentityBodySchema,
+		type CreateDocumentIdentityBody,
+	} from "@/lib/api/doc-identity";
+	import { goto } from "$app/navigation";
 
 	export let data: PageData;
 
@@ -19,7 +25,23 @@
 	let divisionCode: string | undefined;
 	let nationalityId: number | undefined;
 
-	const submit: EventHandler<SubmitEvent, HTMLFormElement> = async () => {};
+	const submit: EventHandler<SubmitEvent, HTMLFormElement> = async () => {
+		const body = CreateDocumentIdentityBodySchema.parse({
+			typeId: typeId,
+			series: series,
+			number: number,
+			divisionCode: divisionCode,
+			issuer: issuer,
+			issuedAt: issuedAt,
+			nationalityId: nationalityId,
+		});
+
+		const result = await createDocumentIdentity({ body, targetId: "@me" });
+
+		if (result != null) {
+			goto("../");
+		}
+	};
 </script>
 
 <Main>
@@ -95,6 +117,8 @@
 						{/if}
 					</Select>
 				</div>
+
+				<Button type="submit" class="col-span-full">Добавить документ</Button>
 			</form>
 		</div>
 	</div>
